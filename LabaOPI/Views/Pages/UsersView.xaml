@@ -11,6 +11,13 @@
     </UserControl.DataContext>
     
     <Grid>
-        <DataGrid ItemsSource="{Binding Collection}"/>
+        <DataGrid ItemsSource="{Binding Collection}" AutoGenerateColumns="False" ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding SecondName}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Номер телефона (моб.)" Binding="{Binding PhoneNumber}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

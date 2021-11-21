@@ -12,7 +12,7 @@ namespace LabaOPI.Services
 
         public BooksRepository()
         {
-            this.dataContext = new DataContext();
+            this.dataContext = DataProvider.GetDataContext();
         }
 
         public void Add(Book book)
@@ -27,7 +27,7 @@ namespace LabaOPI.Services
 
         public IEnumerable<Book> GetAll()
         {
-            return dataContext.Books!.Local;
+            return dataContext.Books!.Local.ToObservableCollection();
         }
 
         public void Remove(Book book)

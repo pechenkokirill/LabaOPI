@@ -12,7 +12,7 @@ namespace LabaOPI.Services
 
         public BorrowedBooksRepository()
         {
-            this.dataContext = new DataContext();
+            this.dataContext = DataProvider.GetDataContext();
         }
 
         public void Add(PersonBook item)
@@ -27,7 +27,7 @@ namespace LabaOPI.Services
 
         public IEnumerable<PersonBook> GetAll()
         {
-            return dataContext.BorrowedBooks!.Local;
+            return dataContext.BorrowedBooks!.Local.ToObservableCollection();
         }
 
         public void Load()

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LabaOPI" xmlns:pages="clr-namespace:LabaOPI.Views.Pages" xmlns:viewmodels="clr-namespace:LabaOPI.ViewModels"
         mc:Ignorable="d"
         DataContext="{x:Static viewmodels:MainViewModel.Inst}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Library" Height="450" Width="800">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -16,10 +16,13 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Background="#ddd">
-            <StackPanel Orientation="Horizontal" Margin="2">
-                <Label Content="Поиск"/>
-                <TextBox Height="22" Width="180" Text="{Binding SearchWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
-            </StackPanel>
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <Label Content="Поиск"/>
+                    <TextBox Height="22" Width="180" Text="{Binding SearchWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <Button Content="Сохранить" HorizontalAlignment="Right" Margin="5" Command="{Binding SaveCommand}"/>
+            </DockPanel>
         </Border>
 
         <TabControl Grid.Row="1">

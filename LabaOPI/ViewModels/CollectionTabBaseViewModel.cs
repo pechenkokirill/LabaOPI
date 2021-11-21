@@ -15,22 +15,21 @@ namespace LabaOPI.ViewModels
     public abstract class CollectionTabBaseViewModel<T> : ObservableObject where T : class, ISearchable
     {
         public ICollectionView Collection { get; set; }
-        private readonly IRepository<T> repository;
+        protected IRepository<T> Repository { get; init; }
 
         protected CollectionTabBaseViewModel()
         {
-            this.repository = OnConfigureRepository(Application.Current.IsDesignTime());
+            Repository = OnConfigureRepository(Application.Current.IsDesignTime());
 
-            repository.Load();
-
-            Collection = CollectionViewSource.GetDefaultView(new ObservableCollection<T>(repository.GetAll()));
+            Repository.Load();
+            Collection = CollectionViewSource.GetDefaultView(Repository.GetAll());
             Collection.Filter = Filter;
             MainViewModel.Inst.OnTextChanged += () => Collection.Refresh();
         }
 
         protected abstract IRepository<T> OnConfigureRepository(bool isDesignTime);
 
-        protected bool Filter(object v)
+        private bool Filter(object v)
         {
             if (v is not ISearchable searchable)
                 return false;

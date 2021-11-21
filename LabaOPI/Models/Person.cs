@@ -15,5 +15,10 @@ namespace LabaOPI.Models
         {
             return SecondName + FirstName + LastName + PhoneNumber;
         }
+
+        public override string ToString()
+        {
+            return $"{SecondName} {FirstName} {LastName}";
+        }
     }
 }

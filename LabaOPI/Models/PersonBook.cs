@@ -8,7 +8,7 @@ namespace LabaOPI.Models
         public Guid Id { get; set; }
         public Person? Person { get; set; }
         public Book? Book { get; set; }
-        public DateTime BorrowTime { get; set; }
+        public DateTime BorrowTime { get; set; } = DateTime.Now;
 
         public string GetSearchString()
         {

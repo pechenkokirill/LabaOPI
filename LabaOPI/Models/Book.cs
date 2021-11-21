@@ -15,5 +15,10 @@ namespace LabaOPI.Models
         {
             return Name + Category + Author + Description;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

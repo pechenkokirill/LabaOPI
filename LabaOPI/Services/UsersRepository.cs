@@ -12,7 +12,7 @@ namespace LabaOPI.Services
 
         public UsersRepository()
         {
-            this.dataContext = new DataContext();
+            this.dataContext = DataProvider.GetDataContext();
         }
 
         public void Add(Person user)
@@ -27,7 +27,7 @@ namespace LabaOPI.Services
 
         public IEnumerable<Person> GetAll()
         {
-            return dataContext.Users!.Local;
+            return dataContext.Users!.Local.ToObservableCollection();
         }
 
         public void Remove(Person user)

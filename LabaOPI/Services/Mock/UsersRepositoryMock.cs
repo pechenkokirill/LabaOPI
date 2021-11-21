@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace LabaOPI.Services.Mock
 {
     public class UsersRepositoryMock : IRepository<Person>
     {
-        private List<Person> users = new List<Person>();
+        private ObservableCollection<Person> users = new ObservableCollection<Person>();
         public void Add(Person person)
         {
             users.Add(person);
