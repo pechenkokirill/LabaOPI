@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LabaOPI.Services
 {
@@ -18,9 +15,9 @@ namespace LabaOPI.Services
             this.dataContext = new DataContext();
         }
 
-        public void Add(PersonBook book)
+        public void Add(PersonBook item)
         {
-            dataContext.BorrowedBooks!.Add(book);
+            dataContext.BorrowedBooks!.Add(item);
         }
 
         public PersonBook? Get(Guid id)
@@ -41,9 +38,9 @@ namespace LabaOPI.Services
                 .Load();
         }
 
-        public void Remove(PersonBook book)
+        public void Remove(PersonBook item)
         {
-            dataContext.BorrowedBooks!.Remove(book);
+            dataContext.BorrowedBooks!.Remove(item);
         }
 
         public void Save()
