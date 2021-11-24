@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LabaOPI" xmlns:pages="clr-namespace:LabaOPI.Views.Pages" xmlns:viewmodels="clr-namespace:LabaOPI.ViewModels"
         mc:Ignorable="d"
-        DataContext="{x:Static viewmodels:MainViewModel.Inst}"
         Title="Library" Height="450" Width="800">
 
     <Grid>
@@ -27,13 +26,13 @@
 
         <TabControl Grid.Row="1">
             <TabItem Header="Книги">
-                <pages:BooksView/>
+                <pages:BooksView DataContext="{Binding BooksViewModel}"/>
             </TabItem>
             <TabItem Header="Пользватели">
-                <pages:UsersView/>
+                <pages:UsersView DataContext="{Binding UsersViewModel}"/>
             </TabItem>
             <TabItem Header="Выданные книги">
-                <pages:BorrowedBooksView/>
+                <pages:BorrowedBooksView DataContext="{Binding BorrowedBooksViewModel}"/>
             </TabItem>
         </TabControl>
         <Border Grid.Row="2" Background="#ddd"/>

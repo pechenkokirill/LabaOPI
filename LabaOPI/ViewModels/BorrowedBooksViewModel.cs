@@ -1,29 +1,21 @@
 ﻿using LabaOPI.Services;
-using LabaOPI.Services.Mock;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System;
+using LabaOPI.Stores;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
 
 namespace LabaOPI.ViewModels
 {
     public class BorrowedBooksViewModel : CollectionTabBaseViewModel<PersonBook>
     {
-        protected override IRepository<PersonBook> OnConfigureRepository(bool isDesignTime)
-        {
-#if DEBUG
-            if (isDesignTime)
-            {
-                return new BorrowedBooksRepositoryMock();
-            } 
-#endif
+        private readonly IRepository<Book> booksRepository;
+        private readonly IRepository<Person> usresRepository;
+        public IEnumerable<Book> Books => new ObservableCollection<Book>(booksRepository.GetAll());
+        public IEnumerable<Person> Users => new ObservableCollection<Person>(usresRepository.GetAll());
 
-            return new BorrowedBooksRepository();
+        public BorrowedBooksViewModel(IRepository<PersonBook> usersRepository, SearchStore searchStore, IRepository<Book> booksRepository, IRepository<Person> usresRepository) : base(usersRepository, searchStore)
+        {
+            this.booksRepository = booksRepository;
+            this.usresRepository = usresRepository;
         }
     }
 }

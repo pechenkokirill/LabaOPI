@@ -1,27 +1,12 @@
-﻿using LabaOPI.Data;
-using LabaOPI.Services;
-using LabaOPI.Services.Mock;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Data;
+﻿using LabaOPI.Services;
+using LabaOPI.Stores;
 
 namespace LabaOPI.ViewModels
 {
     public class BooksViewModel : CollectionTabBaseViewModel<Book>
     {
-        protected override IRepository<Book> OnConfigureRepository(bool isDesignTime)
+        public BooksViewModel(IRepository<Book> repository, SearchStore searchStore) : base(repository, searchStore)
         {
-#if DEBUG
-            if (isDesignTime)
-            {
-                return new BooksRepositoryMock();
-            } 
-#endif
-
-            return new BooksRepository();
         }
     }
 }

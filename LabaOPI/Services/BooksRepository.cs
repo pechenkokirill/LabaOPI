@@ -10,9 +10,9 @@ namespace LabaOPI.Services
         private bool disposedValue;
         private DataContext dataContext;
 
-        public BooksRepository()
+        public BooksRepository(DataContext dataContext)
         {
-            this.dataContext = DataProvider.GetDataContext();
+            this.dataContext = dataContext;
         }
 
         public void Add(Book book)

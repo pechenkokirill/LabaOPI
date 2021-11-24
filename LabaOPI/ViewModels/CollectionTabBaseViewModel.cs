@@ -1,51 +1,45 @@
 ﻿using LabaOPI.Services;
+using LabaOPI.Stores;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
 
 namespace LabaOPI.ViewModels
 {
     public abstract class CollectionTabBaseViewModel<T> : ObservableObject where T : class, ISearchable
     {
+        private readonly SearchStore searchStore;
         public ICollectionView Collection { get; set; }
         protected IRepository<T> Repository { get; init; }
 
-        protected CollectionTabBaseViewModel()
+        public CollectionTabBaseViewModel(IRepository<T> repository, SearchStore searchStore)
         {
-            Repository = OnConfigureRepository(Application.Current.IsDesignTime());
+            Repository = repository;
+            this.searchStore = searchStore;
 
             Repository.Load();
             Collection = CollectionViewSource.GetDefaultView(Repository.GetAll());
             Collection.Filter = Filter;
-            MainViewModel.Inst.OnTextChanged += () => Collection.Refresh();
+            searchStore.OnSearchWordChanged += (s) => Collection.Refresh();
         }
-
-        protected abstract IRepository<T> OnConfigureRepository(bool isDesignTime);
 
         private bool Filter(object v)
         {
             if (v is not ISearchable searchable)
                 return false;
 
-            if (string.IsNullOrWhiteSpace(MainViewModel.Inst.SearchWord))
+            if (string.IsNullOrWhiteSpace(searchStore.SearchWord))
                 return true;
 
             string searchValue = searchable.GetSearchString();
 
-            if (MainViewModel.Inst.SearchWord.Length > searchValue.Length)
+            if (searchStore.SearchWord.Length > searchValue.Length)
             {
-                return MainViewModel.Inst.SearchWord.ToUpper().Contains(searchValue.ToUpper());
+                return searchStore.SearchWord.ToUpper().Contains(searchValue.ToUpper());
             }
             else
             {
-                return searchValue.ToUpper().Contains(MainViewModel.Inst.SearchWord.ToUpper());
+                return searchValue.ToUpper().Contains(searchStore.SearchWord.ToUpper());
             }
         }
     }

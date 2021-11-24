@@ -1,29 +1,34 @@
 ﻿using LabaOPI.Data;
-using LabaOPI.Services;
+using LabaOPI.Stores;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using System;
-using System.ComponentModel;
-using System.Windows.Controls;
 
 namespace LabaOPI.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
-        public static MainViewModel Inst { get; private set; } = new MainViewModel();
-        private string searchWord = "";
-        public string SearchWord { get => searchWord; set { searchWord = value; OnTextChanged?.Invoke(); } }
-        public event Action? OnTextChanged;
+        private readonly SearchStore searchStore;
+        private readonly DataContext dataContext;
+
+        public BooksViewModel BooksViewModel { get; init; }
+        public UsersViewModel UsersViewModel { get; init; }
+        public BorrowedBooksViewModel BorrowedBooksViewModel { get; init; }
+        public string SearchWord { get => searchStore.SearchWord; set => searchStore.SearchWord = value; }
         public RelayCommand SaveCommand { get; set; }
 
-        public MainViewModel()
+        public MainViewModel(SearchStore searchStore, DataContext dataContext, BooksViewModel booksViewModel, UsersViewModel usersViewModel, BorrowedBooksViewModel borrowedBooksViewModel)
         {
+            this.searchStore = searchStore;
+            this.dataContext = dataContext;
+            BooksViewModel = booksViewModel;
+            UsersViewModel = usersViewModel;
+            BorrowedBooksViewModel = borrowedBooksViewModel;
+
             SaveCommand = new RelayCommand(Save);
         }
 
         private void Save()
         {
-            DataContext dataContext = DataProvider.GetDataContext();
             dataContext.SaveChanges();
         }
     }

@@ -6,10 +6,7 @@
              xmlns:local="clr-namespace:LabaOPI.Views.Pages" xmlns:viewmodels="clr-namespace:LabaOPI.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <viewmodels:UsersViewModel/>
-    </UserControl.DataContext>
-    
+
     <Grid>
         <DataGrid ItemsSource="{Binding Collection}" AutoGenerateColumns="False" ColumnWidth="*">
             <DataGrid.Columns>

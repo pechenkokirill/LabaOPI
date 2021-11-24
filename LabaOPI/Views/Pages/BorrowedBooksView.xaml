@@ -6,13 +6,8 @@
              xmlns:local="clr-namespace:LabaOPI.Views.Pages" xmlns:viewmodels="clr-namespace:LabaOPI.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <viewmodels:BorrowedBooksViewModel/>
-    </UserControl.DataContext>
 
     <UserControl.Resources>
-        <viewmodels:UserCollectionList x:Key="userList"/>
-        <viewmodels:BookCollectionList x:Key="bookList"/>
     </UserControl.Resources>
     
     <Grid>
@@ -26,7 +21,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <ComboBox SelectedValue="{Binding Person}" ItemsSource="{Binding Path=Users,Source={StaticResource userList}}"/>
+                            <ComboBox SelectedValue="{Binding Person}" ItemsSource="{Binding DataContext.Users, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
@@ -38,7 +33,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <ComboBox SelectedValue="{Binding Book}" ItemsSource="{Binding Path=Books,Source={StaticResource bookList}}"/>
+                            <ComboBox SelectedValue="{Binding Book}" ItemsSource="{Binding DataContext.Books, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
